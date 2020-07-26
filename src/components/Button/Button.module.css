@@ -1,0 +1,11 @@
+button {
+  width: 70px;
+  margin: 10px;
+}
+
+.inputHide {
+  display: none;
+}
+.inputShow {
+  display: block;
+}
