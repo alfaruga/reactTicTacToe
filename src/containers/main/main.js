@@ -17,53 +17,81 @@ class Main extends Component {
         pcEnabled: true,
         gameNotOver: true,
         turn: 0,
-        count: 0,
-        winner: 'Tie',
+        winner: '',
         rematch: false,
         Players: {
             Player1: 'Player 1',
             Player2: 'PC',
+            p1Wins: 0,
+            p2Wins: 0,
+            draws: 0,
         }
     }
     checkForWinner = () => {
         //I'll hardcore code this function but i made an easy version in pure JS
         let winner = this.state.winner;
+        let playersCopy = { ...this.state.Players };
+        let finishCheck = () => {
+            this.setState({
+                winner: winner,
+                Players: playersCopy,
+                gameNotOver: false
+            })
+        }
+
         for (let i = 0; i <= 8; i += 3) {
             if (this.state.board[i] + this.state.board[i + 1] + this.state.board[i + 2] === 3 ||
                 (this.state.board[i] + this.state.board[i + 1] + this.state.board[i + 2]) === -3
             ) {
                 this.setState({ gameNotOver: false })
                 winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                finishCheck();
                 break;
             }
         }
-        for (let i = 0; i <= 2; i++) {
-            if (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6] === 3 ||
-                (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6]) === -3
+        if (winner === '') {
+            for (let i = 0; i <= 2; i++) {
+                if (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6] === 3 ||
+                    (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6]) === -3
+                ) {
+                    this.setState({ gameNotOver: false });
+                    winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                    finishCheck();
+                    break;
+                };
+            };
+        }
+
+        if (winner === '') {
+            if (this.state.board[0] + this.state.board[4] + this.state.board[8] === 3 ||
+                (this.state.board[0] + this.state.board[4] + this.state.board[8]) === -3
             ) {
-                this.setState({ gameNotOver: false });
                 winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                finishCheck();
+
+
             }
+            if (this.state.board[2] + this.state.board[4] + this.state.board[6] === 3 ||
+                (this.state.board[2] + this.state.board[4] + this.state.board[6]) === -3
+            ) {
+                winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                finishCheck();
 
+
+            }
+        }
+        if (winner === this.state.Players.Player1) {
+            playersCopy.p1Wins += 1;
+        } else if (winner === this.state.Players.Player2) {
+            playersCopy.p2Wins += 1;
+        } else if (winner === '' && this.state.turn === 9) {
+            winner = 'Tie';
+            playersCopy.draws += 1;
+            this.setState({ gameNotOver: false, winner: winner, Players: playersCopy });
 
         }
-        if (this.state.board[0] + this.state.board[4] + this.state.board[8] === 3 ||
-            (this.state.board[0] + this.state.board[4] + this.state.board[8]) === -3
-        ) {
-            winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
 
-            this.setState({ gameNotOver: false })
 
-        }
-        if (this.state.board[2] + this.state.board[4] + this.state.board[6] === 3 ||
-            (this.state.board[2] + this.state.board[4] + this.state.board[6]) === -3
-        ) {
-            winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
-
-            this.setState({ gameNotOver: false });
-
-        }
-        this.setState({ winner: winner })
 
     }
 
@@ -78,13 +106,18 @@ class Main extends Component {
     }
     startHandler = () => {
         this.setState({
-            currentPlay: 1,
-            gameNotOver: true,
+
             board: [
                 '', '', '',
                 '', '', '',
                 '', '', ''
-            ]
+            ],
+
+            currentPlay: this.state.currentPlay === '' ? 1 : (this.state.currentPlay),
+            gameNotOver: true,
+            turn: 0,
+            winner: '',
+
 
         })
     }
@@ -99,18 +132,25 @@ class Main extends Component {
     }
     playsHandler = (event) => {
         let board = [...this.state.board];
-        let turn = this.state.currentPlay;
+        let currentPlayCopy = this.state.currentPlay;
 
-        board[event.target.id] = turn;
+        board[event.target.id] = currentPlayCopy;
 
         if (this.state.currentPlay === 1) {
-            turn = -1;
+            currentPlayCopy = -1;
         } else if (this.state.currentPlay === -1) {
-            turn = 1;
+            currentPlayCopy = 1;
 
         }
-        this.setState({ currentPlay: turn, board: board })
-        this.checkForWinner(this.state);
+        this.setState((prevState, props) => {
+            return { currentPlay: currentPlayCopy, board: board, turn: prevState.turn + 1 }
+        },
+            () => {
+                if (this.state.turn >= 5) {
+                    this.checkForWinner()
+                }
+            });
+
 
     }
 
@@ -149,10 +189,13 @@ class Main extends Component {
                         makePlay={this.playsHandler}
                         marker={this.state.currentPlay}
                         show={showGameboard}
-                        board={this.state.board} />
+                        board={this.state.board}
+                        score={this.state.Players} />
                     <Rematch
                         showRematch={showRematchWindow}
-                        continue={this.state.rematch} />
+                        continue={this.state.rematch}
+                        rematch={this.startHandler}
+                    />
                 </div>
             </Aux>
         )

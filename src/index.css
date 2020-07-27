@@ -9,6 +9,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: url(./assets/images/bgimg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 code {

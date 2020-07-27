@@ -19,6 +19,7 @@
   display: block;
   color: #f3f3f3;
   font-size: 3em;
+  margin: 0;
 }
 .Window button {
   display: inline-block;
