@@ -3,10 +3,12 @@ import classes from './NameHolder.module.css'
 
 const nameHolder = (props) => (
     <div
-        className={
-            [classes[props.multiplayer], classes.nameHolder]
-                .join(' ')
-        } >
+        className={classes.nameHolder}
+        style={
+            {
+                display: props.gameType === true ? 'none' : null
+            }
+        }>
         {props.children}
         < input id={props.children} placeholder={props.children}
             onChange={props.change} ></input >

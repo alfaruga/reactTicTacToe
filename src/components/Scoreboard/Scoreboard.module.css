@@ -10,8 +10,11 @@
   border-collapse: collapse;
 
   background-color: white;
-  border: 5px solid orange;
+  border: 5px solid coral;
 }
 .Hidden {
   display: none;
+}
+.Scoreboard h1 {
+  color: white;
 }

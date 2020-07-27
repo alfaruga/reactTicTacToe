@@ -3,8 +3,13 @@ import Button from '../Button/Button';
 import classes from './RematchWindow.module.css';
 
 const rematch = (props) => (
-    <div className={[classes.Window, classes[props.showRematch]].join(' ')}>
-        <h3>Rematch?</h3>
+    <div className={classes.Window}
+        style={
+            {
+                display: props.showRematch ? null : 'none',
+            }
+        }>
+        <h3>Rematch?{props.showRematch} ss</h3>
 
         <Button action={props.rematch}
             design={'Rematch'}>Yes</Button>

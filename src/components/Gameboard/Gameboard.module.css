@@ -12,9 +12,7 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-.Hidden {
-  display: none;
-}
+
 @media (max-width: 400px) {
   .Gameboard {
     grid-template-columns: 33% 33% 33%;

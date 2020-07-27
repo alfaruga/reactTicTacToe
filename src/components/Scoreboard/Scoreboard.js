@@ -5,7 +5,12 @@ import classes from './Scoreboard.module.css'
 
 
 const scoreboard = (props) => (
-    <div className={[classes.Scoreboard, classes[props.design]].join(' ')}>
+    <div className={classes.Scoreboard}
+        style={
+            {
+                display: (props.currentPlay === '' && props.gameState) ? 'none' : null
+            }
+        }>
         <h1>Current score</h1>
         <table>
             <tr>

@@ -12,9 +12,7 @@
   justify-content: center;
   align-items: center;
 }
-.Hide {
-  display: none;
-}
+
 .Window h3 {
   display: block;
   color: #f3f3f3;
