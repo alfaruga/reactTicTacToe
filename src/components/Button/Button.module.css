@@ -1,11 +1,54 @@
-button {
-  width: 70px;
+.Button {
   margin: 10px;
+  background-color: chocolate;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid orange;
+  color: white;
+  font-family: inherit;
+  font-size: 1.2em;
+  padding: 15px 30px;
+  box-shadow: 0 5px #999;
+  border-radius: 50px;
+}
+.Button:hover {
+  background-color: rgb(255, 109, 5);
+}
+.Button:active {
+  box-shadow: 0 3px #666;
+  transform: translateY(2px);
 }
 
-.inputHide {
-  display: none;
+.Rematch {
+  margin: 10px;
+  background-color: blue;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid purple;
+  color: white;
+  font-family: inherit;
+  font-size: 1.2em;
+  padding: 15px 30px;
+  box-shadow: 0 5px #999;
+  border-radius: 50px;
 }
-.inputShow {
-  display: block;
+
+.Endgame {
+  margin: 10px;
+  background-color: red;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid orange;
+  color: white;
+  font-family: inherit;
+  font-size: 1.2em;
+  padding: 15px 30px;
+  box-shadow: 0 5px #999;
+  border-radius: 50px;
+}
+.Endgame:hover {
+  background-color: rgb(250, 60, 60);
+}
+.Rematch:hover {
+  background-color: rgb(1, 1, 92);
 }

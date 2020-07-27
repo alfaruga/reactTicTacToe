@@ -1,0 +1,25 @@
+.Window {
+  height: 100vh;
+  width: 90vw;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  background-color: coral;
+  opacity: 0.65;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Hide {
+  display: none;
+}
+.Window h3 {
+  display: block;
+  color: #f3f3f3;
+  font-size: 3em;
+}
+.Window button {
+  display: inline-block;
+}

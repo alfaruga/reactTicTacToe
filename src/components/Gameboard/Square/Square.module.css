@@ -1,0 +1,33 @@
+.Square {
+  border: 1px solid blue;
+  height: 70%;
+  width: 80%;
+  font-size: 3.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  color: white;
+  margin: 10px 10px;
+  box-shadow: 0 5px gray;
+  border-radius: 5px;
+  background-color: rgb(17, 169, 230);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Square:hover {
+  cursor: pointer;
+}
+.Square:active {
+  background-color: coral;
+}
+@media (max-width: 400px) {
+  .Square {
+    height: 60%;
+    width: 80%;
+    font-size: 2rem;
+  }
+}
+.AvoidClicks {
+  pointer-events: none;
+  cursor: not-allowed;
+}

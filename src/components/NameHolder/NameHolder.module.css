@@ -2,5 +2,11 @@
   display: none;
 }
 .nameHolder {
+  width: 80%;
   font-weight: bold;
+  margin: 15px 0;
+}
+
+.nameHolder input {
+  width: 100%;
 }

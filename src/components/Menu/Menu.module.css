@@ -1,9 +1,30 @@
 .Menu {
   display: flex;
+
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 80%;
+  box-shadow: 1px 2px 1px 2px #ccc;
 }
 
 .MenuHidden {
   display: none;
+}
+.Menu h1 {
+  width: 80%;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+  background: rgb(248, 165, 57);
+  color: white;
+}
+@media (max-width: 400px) {
+  .Menu h1 {
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    width: 100%;
+    height: 60px;
+  }
 }

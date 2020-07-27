@@ -1,0 +1,24 @@
+.Gameboard {
+  height: 80vh;
+  width: 60vw;
+  text-align: center;
+  display: inline-grid;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 30% 30% 30%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.Hidden {
+  display: none;
+}
+@media (max-width: 400px) {
+  .Gameboard {
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+    font-size: 2rem;
+  }
+}
