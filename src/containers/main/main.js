@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classes from './main.module.css';
 import Menu from '../../components/Menu/Menu';
-import Aux from '../../hoc/Aux';
 import Gameboard from '../../components/Gameboard/Gameboard';
 import Rematch from '../../components/RematchWindow/RematchWindow'
 
@@ -143,7 +142,6 @@ class Main extends Component {
 
     render() {
         return (
-            <Aux >
                 <div className={classes.Container}>
                     <Menu
                         change={this.nameChangeHandler}
@@ -162,7 +160,6 @@ class Main extends Component {
                         rematch={this.rematchHandler}
                     />
                 </div>
-            </Aux>
         )
     }
 }

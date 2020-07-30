@@ -7,7 +7,7 @@ const menu = (props) => (
     <div className={classes.Menu}
         style={
             {
-                display: props.showMenu !== '' ? 'none' : null,
+                display: props.showMenu ==='' ? null : 'none',
             }
         }>
         <h1>TIC TAC TOE</h1>
