@@ -139,27 +139,55 @@ class Main extends Component {
             }
         });
     };
+    endgameHandler = () =>
+        this.setState({ gameNotOver: true })
+
+    newGameHandler = () => {
+        this.setState({
+            board: [
+                '', '', '',
+                '', '', '',
+                '', '', ''
+            ],
+            currentPlay: '',
+            gameNotOver: false,
+            turn: 0,
+            winner: '',
+            rematch: false,
+            Players: {
+                Player1: 'Player 1',
+                Player2: 'PC',
+                p1Wins: 0,
+                p2Wins: 0,
+                draws: 0,
+            }
+        })
+    };
 
     render() {
         return (
-                <div className={classes.Container}>
-                    <Menu
-                        change={this.nameChangeHandler}
-                        showMenu={this.state.currentPlay}
-                        gameMode={this.state.pcEnabled}
-                        clickMultiplayer={this.multiplayerHandler}
-                        clickStart={this.startHandler}></Menu>
-                    <Gameboard
-                        makePlay={this.playsHandler}
-                        marker={this.state.currentPlay}
-                        showGameboard={this.state.gameNotOver}
-                        board={this.state.board}
-                        score={this.state.Players} />
-                    <Rematch
-                        showRematch={this.state.rematch}
-                        rematch={this.rematchHandler}
-                    />
-                </div>
+            <div className={classes.Container}>
+                <Menu
+                    change={this.nameChangeHandler}
+                    showMenu={this.state.currentPlay}
+                    gameMode={this.state.pcEnabled}
+                    clickMultiplayer={this.multiplayerHandler}
+                    clickStart={this.startHandler}></Menu>
+                <Gameboard
+                    makePlay={this.playsHandler}
+                    marker={this.state.currentPlay}
+                    showGameboard={this.state.gameNotOver}
+                    board={this.state.board}
+                    score={this.state.Players} />
+                <Rematch
+                    showRematch={this.state.rematch}
+                    gameOver={this.state.gameNotOver}
+                    rematch={this.rematchHandler}
+                    endgame={this.endgameHandler}
+                    newGame={this.newGameHandler}
+                    winner={this.state.winner}
+                />
+            </div>
         )
     }
 }
