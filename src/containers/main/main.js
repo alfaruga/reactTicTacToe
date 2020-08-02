@@ -32,62 +32,66 @@ class Main extends Component {
     };
 
     checkForWinner = () => {
-        //I'll hardcore code this function but i made an easy version in pure JS
-        let winner = this.state.winner;
-        let playersCopy = { ...this.state.Players };
-        let finishCheck = () => {
-            this.setState({
-                winner: winner,
-                Players: playersCopy,
-                gameNotOver: false,
-                rematch: true,
-            });
-        };
-        for (let i = 0; i <= 8; i += 3) {
-            if (this.state.board[i] + this.state.board[i + 1] + this.state.board[i + 2] === 3 ||
-                (this.state.board[i] + this.state.board[i + 1] + this.state.board[i + 2]) === -3
-            ) {
-                this.setState({ gameNotOver: false })
-                winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
-                finishCheck();
-                break;
+        //I'll hardcore code this function but i've made an easy version in pure JS
+        if (this.state.winner === '') {
+            let winner = this.state.winner;
+            let playersCopy = { ...this.state.Players };
+            let finishCheck = () => {
+                this.setState((prevState, props) => {
+                    return {
+                        winner: winner,
+                        Players: playersCopy,
+                        gameNotOver: false,
+                        rematch: true,
+                    }
+                });
             };
-        };
-        if (winner === '') {
-            for (let i = 0; i <= 2; i++) {
-                if (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6] === 3 ||
-                    (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6]) === -3
+            for (let i = 0; i <= 8; i += 3) {
+                if (this.state.board[i] + this.state.board[i + 1] + this.state.board[i + 2] === 3 ||
+                    (this.state.board[i] + this.state.board[i + 1] + this.state.board[i + 2]) === -3
                 ) {
-                    this.setState({ gameNotOver: false });
+                    this.setState({ gameNotOver: false })
                     winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
                     finishCheck();
                     break;
                 };
             };
-        };
-        if (winner === '') {
-            if (this.state.board[0] + this.state.board[4] + this.state.board[8] === 3 ||
-                (this.state.board[0] + this.state.board[4] + this.state.board[8]) === -3
-            ) {
-                winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+            if (winner === '') {
+                for (let i = 0; i <= 2; i++) {
+                    if (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6] === 3 ||
+                        (this.state.board[i] + this.state.board[i + 3] + this.state.board[i + 6]) === -3
+                    ) {
+                        this.setState({ gameNotOver: false });
+                        winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                        finishCheck();
+                        break;
+                    };
+                };
+            };
+            if (winner === '') {
+                if (this.state.board[0] + this.state.board[4] + this.state.board[8] === 3 ||
+                    (this.state.board[0] + this.state.board[4] + this.state.board[8]) === -3
+                ) {
+                    winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                    finishCheck();
+                };
+                if (this.state.board[2] + this.state.board[4] + this.state.board[6] === 3 ||
+                    (this.state.board[2] + this.state.board[4] + this.state.board[6]) === -3
+                ) {
+                    winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
+                    finishCheck();
+                };
+            };
+            if (winner === this.state.Players.Player1) {
+                playersCopy.p1Wins += 1;
+            } else if (winner === this.state.Players.Player2) {
+                playersCopy.p2Wins += 1;
+            } else if (winner === '' && this.state.turn === 9) {
+                winner = 'Tie';
+                playersCopy.draws += 1;
                 finishCheck();
             };
-            if (this.state.board[2] + this.state.board[4] + this.state.board[6] === 3 ||
-                (this.state.board[2] + this.state.board[4] + this.state.board[6]) === -3
-            ) {
-                winner = this.state.currentPlay === 1 ? `${this.state.Players.Player2}` : `${this.state.Players.Player1}`;
-                finishCheck();
-            };
-        };
-        if (winner === this.state.Players.Player1) {
-            playersCopy.p1Wins += 1;
-        } else if (winner === this.state.Players.Player2) {
-            playersCopy.p2Wins += 1;
-        } else if (winner === '' && this.state.turn === 9) {
-            winner = 'Tie';
-            playersCopy.draws += 1;
-            finishCheck();
-        };
+        }
     };
 
     multiplayerHandler = (event) => {
@@ -160,15 +164,25 @@ class Main extends Component {
             currentPlayCopy = 1;
         };
         this.setState((prevState, props) => {
-            return { currentPlay: currentPlayCopy, board: board, turn: prevState.turn + 1, globalStatistics: { newGlobalStats } }
+            return { currentPlay: currentPlayCopy, board: board, turn: prevState.turn + 1 }
         }, () => {
             if (this.state.turn >= 5) {
                 this.checkForWinner()
+                console.log(this.state.gameNotOver)
             };
-            if (this.state.pcEnabled && this.state.gameNotOver && !pcTurn && (this.state.turn < 8)) { this.playsHandler(null, true) }
-        });
 
-    };
+            if (this.state.pcEnabled
+                && this.state.gameNotOver
+                && !pcTurn
+                && (this.state.turn < 8)) {
+                this.playsHandler(null, true)
+                    ;
+
+            };
+
+        })
+    }
+
     endgameHandler = () =>
         this.setState({ gameNotOver: true })
 
