@@ -23,6 +23,11 @@ class Main extends Component {
             p1Wins: 0,
             p2Wins: 0,
             draws: 0,
+        },
+        globalStatistics: {
+            matches: 0,
+            pCWins: 0,
+            totalMoves: 0,
         }
     };
 
@@ -109,8 +114,10 @@ class Main extends Component {
     };
 
     rematchHandler = () => {
+        let newGlobalStats = { ...this.state.globalStatistics };
+        newGlobalStats['matches'] = newGlobalStats['matches']++;
         this.startHandler();
-        this.setState({ rematch: false, })
+        this.setState({ rematch: false, globalStatistics: newGlobalStats })
     };
 
     nameChangeHandler = (event) => {
@@ -121,28 +128,54 @@ class Main extends Component {
             Players: players
         });
     };
+    pcPlay = (state) => {
+        let boardCopy = [...state.board];
+        let emptyBoardSquares = boardCopy.map((element, index) => {
+            if (element === '') { return index }
+            else { return null }
+        }).filter(element => {
+            return element !== null
+        });
+        let randomArrayPosition = Math.round(Math.random() * (emptyBoardSquares.length - 1));
+        let position = emptyBoardSquares[randomArrayPosition];
 
-    playsHandler = (event) => {
+        console.log(randomArrayPosition, position)
+        return position;
+
+    }
+
+    playsHandler = (event, pcTurn) => {
         let board = [...this.state.board];
         let currentPlayCopy = this.state.currentPlay;
-        board[event.target.id] = currentPlayCopy;
-        if (this.state.currentPlay === 1) {
+        let newGlobalStats = { ...this.state.globalStatistics };
+        let boardCode = pcTurn ? this.pcPlay(this.state) : event.target.id;
+        newGlobalStats['totalMoves'] = newGlobalStats['totalMoves']++;
+
+
+
+        board[boardCode] = currentPlayCopy;
+        if (currentPlayCopy === 1) {
             currentPlayCopy = -1;
-        } else if (this.state.currentPlay === -1) {
+        } else if (currentPlayCopy === -1) {
             currentPlayCopy = 1;
         };
         this.setState((prevState, props) => {
-            return { currentPlay: currentPlayCopy, board: board, turn: prevState.turn + 1 }
+            return { currentPlay: currentPlayCopy, board: board, turn: prevState.turn + 1, globalStatistics: { newGlobalStats } }
         }, () => {
             if (this.state.turn >= 5) {
                 this.checkForWinner()
-            }
+            };
+            if (this.state.pcEnabled && this.state.gameNotOver && !pcTurn && (this.state.turn < 8)) { this.playsHandler(null, true) }
         });
+
     };
     endgameHandler = () =>
         this.setState({ gameNotOver: true })
 
     newGameHandler = () => {
+        let newGlobalStats = { ...this.state.globalStatistics };
+        newGlobalStats['matches'] = newGlobalStats['matches']++;
+
         this.setState({
             board: [
                 '', '', '',
@@ -160,7 +193,8 @@ class Main extends Component {
                 p1Wins: 0,
                 p2Wins: 0,
                 draws: 0,
-            }
+            },
+            globalStatistics: newGlobalStats,
         })
     };
 

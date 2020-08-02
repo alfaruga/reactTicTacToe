@@ -1,0 +1,26 @@
+.NavigationItem {
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+.NavigationItem a {
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  margin: 5px 5px;
+}
+.NavigationItem a:hover {
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0px 0.5px gray;
+  text-decoration: solid;
+}
+.NavigationItem a:active {
+  color: black;
+  margin: 5px 5px;
+}
