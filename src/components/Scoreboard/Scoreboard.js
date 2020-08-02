@@ -13,17 +13,19 @@ const scoreboard = (props) => (
         }>
         <h1>Current score</h1>
         <table>
-            <tr>
-                <ScoreHeader header={props.scores.Player1} />
-                <ScoreHeader header={props.scores.Player2} />
-                <ScoreHeader header={'Ties'} />
+            <tbody>
+                <tr>
+                    <ScoreHeader header={props.scores.Player1} />
+                    <ScoreHeader header={props.scores.Player2} />
+                    <ScoreHeader header={'Ties'} />
 
-            </tr>
-            <tr>
-                <IndividualScore score={props.scores.p1Wins} />
-                <IndividualScore score={props.scores.p2Wins} />
-                <IndividualScore score={props.scores.draws} />
-            </tr>
+                </tr>
+                <tr>
+                    <IndividualScore score={props.scores.p1Wins} />
+                    <IndividualScore score={props.scores.p2Wins} />
+                    <IndividualScore score={props.scores.draws} />
+                </tr>
+            </tbody>
         </table>
     </div>
 )

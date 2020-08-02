@@ -118,10 +118,8 @@ class Main extends Component {
     };
 
     rematchHandler = () => {
-        let newGlobalStats = { ...this.state.globalStatistics };
-        newGlobalStats['matches'] = newGlobalStats['matches']++;
         this.startHandler();
-        this.setState({ rematch: false, globalStatistics: newGlobalStats })
+        this.setState({ rematch: false })
     };
 
     nameChangeHandler = (event) => {
@@ -143,7 +141,6 @@ class Main extends Component {
         let randomArrayPosition = Math.round(Math.random() * (emptyBoardSquares.length - 1));
         let position = emptyBoardSquares[randomArrayPosition];
 
-        console.log(randomArrayPosition, position)
         return position;
 
     }
@@ -151,9 +148,7 @@ class Main extends Component {
     playsHandler = (event, pcTurn) => {
         let board = [...this.state.board];
         let currentPlayCopy = this.state.currentPlay;
-        let newGlobalStats = { ...this.state.globalStatistics };
         let boardCode = pcTurn ? this.pcPlay(this.state) : event.target.id;
-        newGlobalStats['totalMoves'] = newGlobalStats['totalMoves']++;
 
 
 
@@ -168,13 +163,11 @@ class Main extends Component {
         }, () => {
             if (this.state.turn >= 5) {
                 this.checkForWinner()
-                console.log(this.state.gameNotOver)
             };
 
             if (this.state.pcEnabled
-                && this.state.gameNotOver
                 && !pcTurn
-                && (this.state.turn < 8)) {
+            ) {
                 this.playsHandler(null, true)
                     ;
 
@@ -187,8 +180,6 @@ class Main extends Component {
         this.setState({ gameNotOver: true })
 
     newGameHandler = () => {
-        let newGlobalStats = { ...this.state.globalStatistics };
-        newGlobalStats['matches'] = newGlobalStats['matches']++;
 
         this.setState({
             board: [
@@ -207,8 +198,7 @@ class Main extends Component {
                 p1Wins: 0,
                 p2Wins: 0,
                 draws: 0,
-            },
-            globalStatistics: newGlobalStats,
+            }
         })
     };
 
