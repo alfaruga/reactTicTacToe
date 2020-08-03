@@ -13,10 +13,12 @@ class Rematch extends Component {
                 {winner}
                 <h3>Rematch?</h3>
                 <div>
-                    <Button action={this.props.rematch}
-                        design={'Rematch'}>Yes</Button>
-                    <Button action={null}
-                        design={'Endgame'} action={this.props.endgame}>NO</Button>
+                    <Button 
+                    action={this.props.rematch}
+                    design={'Rematch'}>Yes</Button>
+                    <Button 
+                    design={'Endgame'} 
+                    action={this.props.endgame}>NO</Button>
                 </div>
             </Aux>
         rematch = !this.props.gameOver ? rematch
