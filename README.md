@@ -1,6 +1,7 @@
 <h1>Tictactoe game made with create-react-app</h1>
 <em>
-  <p>This project was made to practice ReactJS basics. This app was made to use as few stateful components as possible and encourages the use of stateless components. The component tree was designed by myself.Some caracteristics worth noticing of this webapp:<p>
+  <p>This project was made to practice ReactJS basics. This app was designed to use as few stateful components as possible and encourages the use of stateless components. The component tree was designed by myself.<br><br>
+Some caracteristics worth noticing of this webapp:<p>
   <ol>
     <li>Uses of JSX elements</li>
     <li>Has class based components with state</li>
@@ -17,6 +18,6 @@
     <li>Applies styles conditionally with multiple <strong>class names</strong> using <strong>array.join(' ')</strong></li>
   </ol>
   <br>
-  <h1>About the game</h1>
+  <h3>About the game</h3>
   <em>
     <p>It's a simple tic tac toe game that can be played by one or two players. It keeps track of the score, has a vs PC easy mode and typical characteristics of this type of game.</p>
