@@ -1,5 +1,5 @@
-<h1>Tictactoe</h1>
-<h2>A simple tic-tac-toe game to play in the browser, play <a href="https://alfaruga.github.io/reactTicTacToe/" target="_blank">here</a><h2>
+# Tictactoe
+A simple tic-tac-toe game to play in the browser, play <a href="https://alfaruga.github.io/reactTicTacToe/" target="_blank">here</a>
  
   <h3>Itroduction</h3>
   <hr>
