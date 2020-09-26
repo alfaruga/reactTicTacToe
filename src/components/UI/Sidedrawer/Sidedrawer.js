@@ -7,7 +7,7 @@ import DrawerToggle from './DrawerToggle/DrawerToggle'
 
 
 const sidedrawer = (props) => (
-    < Aux props>
+    < Aux >
         <DrawerToggle clicked={props.sideDrawerToggle} />
         <Backdrop showBack={props.showSideDrawer} backdropToggle={props.sideDrawerToggle} />
         <nav style={
